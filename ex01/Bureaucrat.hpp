@@ -14,10 +14,10 @@
 #ifndef BUREAUCRAT_HPP
 #define BUREAUCRAT_HPP
 
-#include "Form.hpp"
-
 #include <iostream>
 #include <stdexcept>
+
+#include "Form.hpp"
 
 class Form;
 
@@ -28,7 +28,7 @@ class Bureaucrat {
 
 	public:
 		///// Orthodox Canonical Form /////
-		// Basic Constructor
+		// Default Constructor
 		Bureaucrat(void);
 
 		// Copy Constructor
@@ -65,7 +65,7 @@ class Bureaucrat {
 		// getGrade
 		int getGrade(void) const;
 
-		/// Setters
+		/// Grade Modifiers
 		// incrementGrade
 		void incrementGrade(void);
 
@@ -73,11 +73,11 @@ class Bureaucrat {
 		void decrementGrade(void);
 
 		///// signForm Added /////
-		void signForm(Form& form);
-
+		void signForm(Form &form);
 
 };
 
+///// Operator Overloading /////
 // << operator overloading
 std::ostream &operator<<(std::ostream &out, const Bureaucrat &b);
 
