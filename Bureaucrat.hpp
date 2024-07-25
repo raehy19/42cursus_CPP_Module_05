@@ -15,6 +15,7 @@
 #define BUREAUCRAT_HPP
 
 #include <iostream>
+#include <stdexcept>
 
 class Bureaucrat {
 	private:
@@ -23,7 +24,7 @@ class Bureaucrat {
 
 	public:
 		///// Orthodox Canonical Form /////
-		// Basic Constructor
+		// Default Constructor
 		Bureaucrat(void);
 
 		// Copy Constructor
@@ -44,13 +45,13 @@ class Bureaucrat {
 		// GradeTooHighException
 		class GradeTooHighException : public std::exception {
 			public:
-				virtual const char* what() const throw();
+				virtual const char *what() const throw();
 		};
 
 		// GradeTooLowException
 		class GradeTooLowException : public std::exception {
 			public:
-				virtual const char* what() const throw();
+				virtual const char *what() const throw();
 		};
 
 		/// Getters
@@ -60,7 +61,7 @@ class Bureaucrat {
 		// getGrade
 		int getGrade(void) const;
 
-		/// Setters
+		/// Grade Modifiers
 		// incrementGrade
 		void incrementGrade(void);
 
@@ -69,6 +70,7 @@ class Bureaucrat {
 
 };
 
+///// Operator Overloading /////
 // << operator overloading
 std::ostream &operator<<(std::ostream &out, const Bureaucrat &b);
 

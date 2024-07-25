@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "Bureaucrat.hpp"
-#include <iostream>
-#include <stdexcept>
 
 ///// Orthodox Canonical Form /////
 // Default Constructor
@@ -39,7 +36,7 @@ Bureaucrat::~Bureaucrat(void) {
 }
 
 ///// Member Functions /////
-
+/// Constructor
 // Constructor with name and grade
 Bureaucrat::Bureaucrat(const std::string &name, int grade) : _name(name), _grade(grade) {
 	if (grade < 1) {
@@ -49,26 +46,30 @@ Bureaucrat::Bureaucrat(const std::string &name, int grade) : _name(name), _grade
 	}
 }
 
-// Exception class implementation
+/// Exception Classes
+// GradeTooHighException
 const char *Bureaucrat::GradeTooHighException::what() const throw() {
 	return "Grade is too high!";
 }
 
+// GradeTooLowException
 const char *Bureaucrat::GradeTooLowException::what() const throw() {
 	return "Grade is too low!";
 }
 
-// Function to return the name
+/// Getters
+// getName
 const std::string &Bureaucrat::getName(void) const {
 	return _name;
 }
 
-// Function to return the grade
+// getGrade
 int Bureaucrat::getGrade(void) const {
 	return _grade;
 }
 
-// Function to increment the grade
+/// Grade Modifiers
+// incrementGrade
 void Bureaucrat::incrementGrade(void) {
 	if (_grade <= 1) {
 		throw GradeTooHighException();
@@ -76,7 +77,7 @@ void Bureaucrat::incrementGrade(void) {
 	_grade--;
 }
 
-// Function to decrement the grade
+// decrementGrade
 void Bureaucrat::decrementGrade(void) {
 	if (_grade >= 150) {
 		throw GradeTooLowException();
@@ -84,6 +85,7 @@ void Bureaucrat::decrementGrade(void) {
 	_grade++;
 }
 
+///// Operator Overloading /////
 // << operator overloading
 std::ostream &operator<<(std::ostream &out, const Bureaucrat &b) {
 	out << b.getName() << ", bureaucrat grade " << b.getGrade();
