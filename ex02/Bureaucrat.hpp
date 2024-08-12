@@ -17,9 +17,9 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "Form.hpp"
+#include "AForm.hpp"
 
-class Form;
+class AForm;
 
 class Bureaucrat {
 	private:
@@ -72,8 +72,11 @@ class Bureaucrat {
 		// decrementGrade
 		void decrementGrade(void);
 
-		///// signForm Added /////
-		void signForm(Form &form);
+		///// signForm /////
+		void signForm(AForm &form);
+
+		///// executeForm Added /////
+		void executeForm(AForm const &form) const;
 
 };
 

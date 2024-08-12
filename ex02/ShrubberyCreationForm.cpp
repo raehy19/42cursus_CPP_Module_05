@@ -13,43 +13,68 @@
 #include "ShrubberyCreationForm.hpp"
 #include <fstream>
 
-ShrubberyCreationForm::ShrubberyCreationForm() 
-    : AForm("Shrubbery Creation", 145, 137), _target("default") {}
+/**
+ * @brief Constructor with target parameter
+ *
+ * @param target Target of the form
+ */
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target)
+	: AForm("Shrubbery Creation", 145, 137), _target(target) {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other)
-    : AForm(other), _target(other._target) {}
+/**
+ * @brief Copy constructor
+ *
+ * @param other Another instance of ShrubberyCreationForm to copy
+ */
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other)
+	: AForm(other), _target(other._target) {}
 
-ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationForm& other) {
-    if (this != &other) {
-        AForm::operator=(other);
-        _target = other._target;
-    }
-    return *this;
+/**
+ * @brief Assignment operator overload
+ *
+ * @param other Another instance of ShrubberyCreationForm to assign from
+ * @return ShrubberyCreationForm& Reference to the assigned object
+ */
+ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &other) {
+	if (this != &other) {
+		AForm::operator=(other);
+		_target = other._target;
+	}
+	return *this;
 }
 
+/**
+ * @brief Destructor
+ */
 ShrubberyCreationForm::~ShrubberyCreationForm() {}
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target)
-    : AForm("Shrubbery Creation", 145, 137), _target(target) {}
-
-void ShrubberyCreationForm::execute(Bureaucrat const & executor) const {
-    if (!getIsSigned())
-        throw FormNotSignedException();
-    if (executor.getGrade() > getGradeToExecute())
-        throw GradeTooLowException();
-
-    std::ofstream file(_target + "_shrubbery");
-    if (!file.is_open())
-        throw std::runtime_error("Cannot create file");
-
-    file << "    /\\\n";
-    file << "   /\\*\\\n";
-    file << "  /\\O\\*\\\n";
-    file << " /*/\\/\\/\\\n";
-    file << "/\\O\\/\\*\\/\\\n";
-    file << "    ||\n";
-    file << "    ||\n";
-    file << "    ||\n";
-
-    file.close();
+/**
+ * @brief Execute the form's action, which is to create a shrubbery file
+ *
+ * @param executor Bureaucrat who executes the form
+ * @throw AForm::FormNotSignedException if the form is not signed
+ * @throw AForm::GradeTooLowException if the executor's grade is too low
+ */
+void ShrubberyCreationForm::execute(const Bureaucrat &executor) const {
+	if (!getIsSigned()) {
+		throw AForm::FormNotSignedException();
+	}
+	if (executor.getGrade() > getGradeToExecute()) {
+		throw AForm::GradeTooLowException();
+	}
+	std::ofstream ofs((_target + "_shrubbery").c_str());
+	if (ofs.fail()) {
+		std::cerr << "Failed to open file: " << _target << "_shrubbery" << std::endl;
+		return;
+	}
+	ofs << "       _-_" << std::endl;
+	ofs << "    /~~   ~~\\" << std::endl;
+	ofs << " /~~         ~~\\" << std::endl;
+	ofs << "{               }" << std::endl;
+	ofs << " \\  _-     -_  /" << std::endl;
+	ofs << "   ~  \\ //  ~" << std::endl;
+	ofs << "_- -   | | _- _" << std::endl;
+	ofs << "  _ -  | |   -_" << std::endl;
+	ofs << "      // \\" << std::endl;
+	ofs.close();
 }

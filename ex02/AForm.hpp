@@ -39,8 +39,8 @@ class AForm {
 		// Assignment Operator Overloading
 		AForm &operator=(const AForm &other);
 
-		// Destructor
-		~AForm();
+		// Destructor - add virtual keyword
+		virtual ~AForm();
 
 		///// Member Functions /////
 		/// Constructor
@@ -64,7 +64,7 @@ class AForm {
 		// beSigned
 		void beSigned(const Bureaucrat &bureaucrat);
 
-		// execute added
+		// execute added - pure virtual function
 		virtual void execute(Bureaucrat const & executor) const = 0;
 
 		/// Exception Classes

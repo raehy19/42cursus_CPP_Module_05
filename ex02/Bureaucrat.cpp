@@ -92,12 +92,22 @@ std::ostream &operator<<(std::ostream &out, const Bureaucrat &b) {
 	return out;
 }
 
-///// signForm Added /////
-void Bureaucrat::signForm(Form &form) {
+///// signForm /////
+void Bureaucrat::signForm(AForm &form) {
 	try {
 		form.beSigned(*this);
 		std::cout << _name << " signed " << form.getName() << std::endl;
 	} catch (std::exception &e) {
 		std::cout << _name << " couldn't sign " << form.getName() << " because " << e.what() << std::endl;
+	}
+}
+
+//// executeForm Added /////
+void Bureaucrat::executeForm(AForm const &form) const {
+	try {
+		form.execute(*this);
+		std::cout << _name << " executed " << form.getName() << std::endl;
+	} catch (const std::exception &e) {
+		std::cerr << _name << " couldn't execute " << form.getName() << " because " << e.what() << std::endl;
 	}
 }
